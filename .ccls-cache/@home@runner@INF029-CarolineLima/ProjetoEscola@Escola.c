@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define TAMALUNO 3
 #define TAMDATA 3
@@ -403,6 +404,13 @@ int CadastrarProfessor(int contagemProfessor, dadosProfessor professores[]) {
   return 0;
 }
 
+
+void copiaString(char strDestino[], char strOrigem[]){
+  for(int i = 0; i < strlen(strOrigem); i++){
+    strDestino[i] = strOrigem[i];
+  }
+}
+
 int ExcluirAluno(int contagemAluno, Aluno alunos []){
   int matricula;
   printf("Exclusão por matrícula\n");
@@ -416,21 +424,24 @@ int ExcluirAluno(int contagemAluno, Aluno alunos []){
       if(matricula == alunos[i].matriculaAluno){
         for(int j = i; j< contagemAluno -1; j++){
           alunos[j].matriculaAluno = alunos[j + 1].matriculaAluno;
-          alunos[j].nomeAluno[i] = alunos[j + 1].nomeAluno[i];
+          copiaString(alunos[j].nomeAluno, alunos[j + 1].nomeAluno);
+          
           alunos[j].sexoAluno = alunos[j + 1].sexoAluno;
-          alunos[j].cpfAluno[i] = alunos[j + 1].cpfAluno[i];
+
+          strcpy(alunos[j].cpfAluno,  alunos[j + 1].cpfAluno);
+          
           alunos[j].nascimento.dia = alunos[j + 1].nascimento.dia;
           alunos[j].nascimento.mes = alunos[j + 1].nascimento.mes;
           alunos[j].nascimento.ano = alunos[j + 1].nascimento.ano;
         }
         //contagemAluno--;
-        printf("\nAluno excluído com sucesso!");
+        printf("\nAluno excluído com sucesso!\n");
       }
     }
   }
    return contagemAluno;
 }
-int ExcluirProfessor(int)
+int ExcluirProfessor(int);
 
 int listarAlunoPorSexo(int contagemAluno, Aluno alunos[]) {
   if (contagemAluno == 0) {
@@ -471,7 +482,6 @@ int listarProfessorPorSexo(int contagemProfessor, dadosProfessor professores[]){
 
 int atualizarAlunos(int contagemAluno, Aluno alunos[]){
   int matricula;
-  int novaMatricula; 
   printf("Digite a matrícula que deseja atualizar:\n");
   scanf("%d",&matricula);
   for(int i = 0; i < contagemAluno; i++){

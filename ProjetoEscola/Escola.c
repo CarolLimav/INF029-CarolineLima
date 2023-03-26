@@ -26,6 +26,8 @@ typedef struct disc {
   int codigoDisciplina;
   int semestreDisciplina;
   char professorDisciplina[50];
+  int vagas; 
+  char alunoDisciplina[50]; 
 } Disciplina;
 
 typedef struct Professor {
@@ -62,6 +64,7 @@ int ordenarPornascimentoProfessor(int contagemProfessor, dadosProfessor professo
 int ordenarPorNomeProfessor( int contagemProfessor, dadosProfessor professores[]);
 int AniversarianteAluno(int contagemAluno, Aluno alunos[]);
 int AniversarianteProfessor(int contagemProfessor, dadosProfessor professores[]);
+int vagasDisciplias(int contagemDisciplina, Disciplina discs[]);
 
 Aluno alunos[TAMALUNO]; // aqui é um vetor de uma estrutura
 // Data datas[TAMDATA];
@@ -187,6 +190,10 @@ int main() {
           atualizarDisciplina(contagemDisciplina, discs);
             break; 
           }
+          case 5:{
+            
+            break;
+          }
           default:{
             printf("Opção inválida!!");
           }
@@ -234,6 +241,14 @@ int main() {
           }
           case 8:{
           AniversarianteProfessor(contagemProfessor, professores); 
+            break; 
+          }
+          case 9:{
+          vagasDisciplias(contagemDisciplina, discs);
+            break; 
+          }
+          case 10:{
+        
           }
         default: {
         printf("Opção inválida\n");
@@ -363,16 +378,20 @@ int menuRelatorios() {
   printf("{6} Listar professores por ordem de nascimento\n");
   printf("{7} Listar aniversariantes do mês - ALUNOS \n");
   printf("{8} Listar aniversariantes do mês - PROFESSORES\n");
+  printf("{9} Listas de dsiciplinas que extrapolam 40 vagas\n"); 
+  printf("{10} Buscar nomes com 3 letras informadas\n");
   scanf("%d", &opcaoRelatorio);
   return opcaoRelatorio; 
 }
 int menuDisciplina() {
   int opcaoDisciplina;
   printf("Digite a opção desejada:\n");
+  printf("{0} Voltar\n");
   printf("{1} Cadastrar disciplina\n");
   printf("{2} Listar Disciplinas:\n");
   printf("{3} Excluir disciplina\n");
   printf("{4} Atualizar disciplina \n");
+  printf("{5} Cadastrar aluno na disciplina\n"); 
   scanf("%d", &opcaoDisciplina);
   return opcaoDisciplina;
 }
@@ -387,6 +406,19 @@ int menuAluno() {
   scanf("%d", &opcaoAluno);
   return opcaoAluno;
 }
+int cadastrarAlunoDisciplina(int contagemDisciplina, Disciplina discs[]){
+  int codigo; 
+  printf("digite o código da disciplina que deseja inserir o aluno:\n");
+  scanf("%d",&codigo); 
+  for(int i=0; i< contagemDisciplina; i++){
+  if(codigo == discs[i].codigoDisciplina){
+  printf("Digite o nome do aluno que deseja cadastrar:\n");
+  fgets(discs[contagemDisciplina].alunoDisciplina, 50, stdin);
+  printf("Aluno cadastrado na disciplina!\n");
+  }
+  }
+  return 0; 
+}
 int CadastrarDisciplina(int contagemDisciplina, Disciplina discs[]) {
   if (contagemDisciplina < TAMDISCIPLINA) {
     printf("CADASTRO DE DISCIPLINA\n");
@@ -400,6 +432,8 @@ int CadastrarDisciplina(int contagemDisciplina, Disciplina discs[]) {
     fgets(discs[contagemDisciplina].professorDisciplina, 50, stdin);
     printf("Digite o semestre:\n");
     scanf("%d", &discs[contagemDisciplina].semestreDisciplina);
+    printf("digite a quantidade de vagas da disciplina:\n");
+    scanf("%d", &discs[contagemDisciplina].vagas); 
   } else {
     printf("Lista cheia!");
   }
@@ -811,3 +845,17 @@ if(mesNiver == professores[i].nascimento.mes){
 }
   return 0; 
 }
+int vagasDisciplias(int contagemDisciplina, Disciplina discs[]){
+  printf("Listas de disciplinas que extrapolam 40 vagas:\n");
+  if(contagemDisciplina > 0){
+    for(int i=0; i< contagemDisciplina; i++){
+    if(discs[i].vagas >= 40){
+      printf("-%s -%s", discs[i].nomeDisciplina, discs[i].professorDisciplina); 
+    }
+    }
+  }
+  return 0; 
+}
+
+
+

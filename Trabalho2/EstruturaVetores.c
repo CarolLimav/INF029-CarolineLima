@@ -5,7 +5,7 @@
 #include "EstruturaVetores.h"
 
 typedef struct Estrutura{
-  int *auxiliar; //auxiliar é ponteiro pq seu tamanho será definido depois, alocarei valores 
+  int *auxiliar; 
   int tamanho;
   int quantidade;
 } Estrutura; 
@@ -64,8 +64,6 @@ CONSTANTES
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
     int retorno = 0;
-    // int existeEstruturaAuxiliar = 0;
-    // int temEspaco = 0;
     int posicao_invalida = 0;
   
     if (posicao < 1 || posicao > TAM){
@@ -108,8 +106,7 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-  int retorno = SUCESSO;
-  // vetorPrincipal[posicao-1].quantidade = 0; 
+  int retorno = SUCESSO; 
   
   if(posicao < 1 || posicao > TAM){
     retorno =  POSICAO_INVALIDA; 
@@ -213,17 +210,8 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
     for(int i=0; i< vetorPrincipal[posicao-1].quantidade; i++){
       vetorAux[i] = vetorPrincipal[posicao-1].auxiliar[i]; 
     }
+    return SUCESSO;
     
-    // else{
-    //   Estrutura estruturaVetAux = vetorPrincipal[posicao-1];
-    //   int qtd = estruturaVetAux.quantidade;
-      
-    //   for (int i = 0; i < qtd; i++){
-    //     vetorAux[i] = estruturaVetAux.auxiliar[i]; 
-    //   }
-      return SUCESSO;
-    // }
-    //  return retorno;
 }
 
 /*
@@ -248,7 +236,7 @@ Rertono (int)
         vetorAux[i] = vetorPrincipal[posicao-1].auxiliar[i]; 
     } 
       
-      for(int i = 1; i <vetorPrincipal[i].quantidade; i++){ //bubble sort 
+    for(int i = 1; i <vetorPrincipal[i].quantidade; i++){ //bubble sort 
         for(int j = 0; j < vetorPrincipal[i].quantidade -1; j++){
           if(vetorAux[j] > vetorAux [j+1]){
             int temp = vetorAux[j];
@@ -260,7 +248,7 @@ Rertono (int)
       return SUCESSO;
     }
   return retorno;
-} //ok até aqui 
+}  
   
 /*
 Objetivo: retorna os números de todas as estruturas auxiliares.
@@ -274,11 +262,11 @@ Rertono (int)
   {
     int posicao, i, j; 
     int indice = 0; 
-    // int achei = 0; 
+   
     
   for(posicao = 0; posicao < TAM; posicao++){
     if(vetorPrincipal[posicao].quantidade > 0){
-      // achei = 1; 
+     
     
     for( i=0; i < vetorPrincipal[posicao].quantidade; i++){
       vetorAux[indice] = vetorPrincipal[posicao].auxiliar[i];
@@ -331,7 +319,7 @@ Rertono (int)
     }else{
         return SUCESSO; 
       }
-  }//ok até aqui 
+  } 
 
 /*
 Objetivo: modificar o tamanho da estrutura auxiliar da posição 'posicao' para o novo tamanho 'novoTamanho' + tamanho atual

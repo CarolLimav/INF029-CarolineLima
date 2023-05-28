@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #define TAM 10
@@ -391,29 +392,45 @@ Retorno (No*)
     NULL, caso não tenha nenhum número nas listas
     No*, ponteiro para o início da lista com cabeçote
 */
+No* criarElemento(int valor){
+	No *novo = (No *)malloc(sizeof(No));
+	if(novo == NULL){
+        exit(1);
+	}
+	novo->conteudo = valor;
+	novo->prox = NULL;
+	return novo;
+}
+
+void inserirFinalComCabecote(No *inicio, int val){
+
+	No* tmp;
+	No* novo = criarElemento(val);
+
+	if(inicio->prox == NULL){
+		inicio->prox = novo;
+	}
+	else{
+		tmp = inicio->prox;
+
+		while(tmp->prox != NULL)
+			tmp = tmp->prox;
+
+		tmp->prox = novo;
+	}
+}
+
 No *montarListaEncadeadaComCabecote()
 {
   int achei = 0; 
   No *novo = (No *)malloc(sizeof(No));
-	novo->prox = NULL;
-  No *tmp; 
   for(int i =0; i < TAM; i++){
     if(vetorPrincipal[i].auxiliar != NULL){
       if(vetorPrincipal[i].quantidade > 0){
         achei++; 
         
   for(int j = 0; j< vetorPrincipal[i].quantidade; j++){
-  if(novo->prox == NULL){
-		novo->prox = novo;
-	}
-	else{
-		tmp = novo->prox;
-
-		while(tmp->prox != NULL)
-			tmp = tmp->prox;
-
-		tmp->prox = novo;
-	} 
+    inserirFinalComCabecote(novo, vetorPrincipal[i].auxiliar[j]);
         }
       }
     }
@@ -431,11 +448,12 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
-  No *atual = inicio;
-  int i= 0; 
-  while(atual != NULL){
-    vetorAux[i] = atual->conteudo;
-    i++;
+  No *atual;
+  int index = 0;
+  atual = inicio->prox;
+
+  while (atual != NULL) {
+    vetorAux[index++] = atual->conteudo;
     atual = atual->prox;
   }
 }
@@ -449,6 +467,7 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+  
   No *atual = *inicio;
   No *prox;
 
